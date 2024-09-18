@@ -706,7 +706,7 @@ namespace Yara.Areas.Admin.Controllers
             }
         }
 
-        [HttpGet("GetProductSuggestions")]
+        [HttpGet]
         public async Task<IActionResult> GetProductSuggestions(string query)
         {
             if (string.IsNullOrWhiteSpace(query))

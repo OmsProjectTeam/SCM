@@ -81,9 +81,6 @@
 
 
 
-
-
-
 <div id="contentWrapper" style="display: none;">
     <div class="row small-spacing">
         <div class="col-12">
@@ -725,12 +722,6 @@
 
 
 
-
-
-
-
-
-
 @section Scripts {
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -742,7 +733,7 @@
         $(document).ready(function () {
             let productSelectedFromAutocomplete = false;  // Track whether product is selected from autocomplete
             let typingTimer;  // Timer identifier
-            const typingDelay = 3000;  // 3 seconds delay before triggering search
+            const typingDelay = 5000;  // 5 seconds delay before triggering search
 
             // Autocomplete search functionality for the model
             $('#product12').autocomplete({
@@ -752,6 +743,7 @@
                         type: 'GET',
                         data: { query: request.term },
                         success: function (data) {
+                            console.log(data);
                             response($.map(data, function (item) {
                                 return {
                                     label: item.model,
@@ -780,7 +772,6 @@
                     $('#product12').val(ui.item.value);  // Set selected value in the input box
                     populateProductDetails(ui.item.productDetails);  // Populate product details
                     clearTimeout(typingTimer);  // Clear typing timer as selection is made
-                    // Ensure product availability check is called just like in manual input
                     checkProductAvailability(ui.item.value);  // Trigger the check
                     return false;
                 }
@@ -807,7 +798,6 @@
                 }
             });
 
-
             // Function to check product availability
             function checkProductAvailability(productId) {
                 $.ajax({
@@ -830,7 +820,7 @@
                             });
                             $('#ProductName').val(productId);
                             $('#modalButton').prop('disabled', false);
-                            openModal();
+                            openModal(productId);  // Pass the productId to the modal
                         }
                     },
                     error: function () {
@@ -868,9 +858,9 @@
             }
 
             // Modal functions
-            function openModal() {
+            function openModal(productId) {
                 $('#customModal').show();
-                populateProductNameInModal(model);
+                populateProductNameInModal(productId);  // Pass the productId to the modal function
             }
 
             function closeModal() {
@@ -885,16 +875,15 @@
             }
 
             // Function to populate product name in the modal based on the model number
-            function populateProductNameInModal(model) {  // **NEW FUNCTION**: Added to populate product name when the modal opens
-                if (model) {
+            function populateProductNameInModal(productId) {
+                if (productId) {
                     $.ajax({
                         url: '@Url.Action("FetchImageByModel", "ProductInformationlowes", new { area = "Admin" })',  // Adjust the URL according to your routing
                         type: 'GET',
-                        data: { model: model },  // Send the model as a parameter
+                        data: { model: productId },  // Send the model as a parameter
                         success: function (response) {
                             if (response.success) {
-                                $("#MyProduct").val(response.productName);  // **NEW CHANGE**: Populate the product name in the modal
-                                console.log(MyProduct)
+                                $("#MyProduct").val(response.productName);  // Populate the product name in the modal
                             } else {
                                 alert(response.message);  // Show an alert if there was an issue
                                 $("#MyProduct").val('');  // Clear product name if not found
@@ -908,7 +897,11 @@
                 }
             }
 
-            // Function to update the Code field
+            // Trigger code update when selling price changes
+            $('#sellingPrice').on('change keyup', function () {
+                updateCodeField();
+            });
+
             function updateCodeField() {
                 const Merchant = $('#SelectMerchant option:selected').text();
                 const WareHouse = $('#SelectWareHouse option:selected').text();
@@ -943,13 +936,9 @@
                     $('#QRCodeImage').attr('src', '');
                 }
             }
-
-            // Trigger code update when selling price changes
-            $('#sellingPrice').on('change keyup', function () {
-                updateCodeField();
-            });
         });
     </script>
+
 
 
     <script>
@@ -1515,7 +1504,7 @@
 
 
 
-        
+
 
     </script>
 
