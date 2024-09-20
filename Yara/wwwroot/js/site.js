@@ -24,6 +24,18 @@ $(function () {
 });
 
 $(function () {
+    $("#example4").DataTable().fnDestroy();
+    $('#example4').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
+
+$(function () {
     $("#example5").DataTable().fnDestroy();
     $('#example5').DataTable({
         "paging": false,

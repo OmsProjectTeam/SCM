@@ -5,7 +5,6 @@
 }
 
 
-
 <div class="col-xs-12">
     <div class="box-content">
         <ul class="list-inline">
@@ -49,7 +48,7 @@
                             <div class="tab-pane" id="tab-progress-1">
                                 <div class='table-responsive'>
                                     <div style="overflow-x:auto;">
-                                        <table id="example" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
+                                        <table id="example" data-url-qr="@Url.Action("GenerateQRCode", "Order")" data-url-bar="@Url.Action("GenerateBarcode", "ProductInformation")" class="table table-striped table-bordered table-hover display dataTable responsive" style="width: 100%;" role="grid" aria-describedby="example_info">
                                             <thead>
                                                 <tr role="row">
                                                     <th class="sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending">@ResourceWeb.LbId</th>
@@ -302,125 +301,7 @@
 
 @section Scripts
 {
-
-    @* <script>
-        $(function () {
-            $("#example2").DataTable().fnDestroy();
-            $('#example2').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example3").DataTable().fnDestroy();
-            $('#example3').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example4").DataTable().fnDestroy();
-            $('#example4').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(function () {
-            $("#example5").DataTable().fnDestroy();
-            $('#example5').DataTable({
-                "paging": false,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
-            updateQRCode();
-            // Function to truncate text to a specified length
-            function truncateText(text, maxLength) {
-                if (text.length > maxLength) {
-                    return text.substring(0, maxLength) + '...'; // Add ellipsis if text exceeds maxLength
-                } else {
-                    return text;
-                }
-            }
-            // Loop through each table cell with class 'truncate-50'
-            $('.truncate-50').each(function () {
-                var text = $(this).text(); // Get the text content of the cell
-                var truncatedText = truncateText(text, 100); // Truncate the text to 50 characters
-                $(this).text(truncatedText); // Set the truncated text back to the cell
-            });
-
-            function updateQRCode() {
-                $('.QRCodeImage').each(function () {
-                    var code = $(this).siblings('.Code').text();
-                    if (code) {
-                        console.log(code);
-                        $(this).attr('src', '@Url.Action("GenerateQRCode", "Order")?text=' + encodeURIComponent(code));
-                    } else {
-                        $(this).attr('src', '');
-                    }
-                });
-            }
-        });
-    </script> *@
-    <script>
-        function updateQRCode() {
-            $('.QRCodeImage').each(function () {
-                var code = $(this).siblings('.Code').text();
-                if (code) {
-                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
-                } else {
-                    $(this).attr('src', '');
-                }
-            });
-        }
-
-        function updateBar() {
-            $('.BarCodeUPC').each(function () {
-                var upc = $(this).siblings('.UPCFORPR').text();
-                console.log(upc);
-                if (upc) {
-                    $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformation")?text=` + encodeURIComponent(upc));
-                } else {
-                    $(this).attr('src', '');
-                }
-            });
-        }
-    </script>
-    <script>
-        $(document).on('click', '.paginate_button', function () {
-            updateQRCode();
-            updateBar();
-        });
-
-        $(document).ready(function () {
-            updateBar();
-        });
-    </script>
-
+    <script src="~/js/order.js"></script>
 }
 
 
