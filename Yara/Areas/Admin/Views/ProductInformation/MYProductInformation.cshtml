@@ -82,13 +82,13 @@
                                                         <td class="truncate-50 Codee">@item.Qrcode</td>
                                                         <td>
                                                             <div class="form-group">
-                                                                <div hidden class="truncate-50 Code">@item.Qrcode</div>
+                                                                <div hidden class="Code">@item.Qrcode</div>
                                                                 <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
-                                                                <div hidden class="UPCFORPR">@item.UPC</div>
+                                                                <img class="BarCodeUPC img-fluid" src="" alt="Bar Code"/>
+                                                                <div hidden class="UPCFORPR" style="display:none;">@item.UPC</div>
                                                             </div>
                                                         </td>
                                                     </tr>
@@ -215,9 +215,9 @@
                         <li class="paginate_button previous disabled" id="example_previous"><a href="#" aria-controls="example" data-dt-idx="0" tabindex="0">Previous</a></li>
                         <li class="paginate_button active"><a href="#" aria-controls="example" data-dt-idx="1" tabindex="0">1</a></li>
                         <li class="paginate_button next disabled" id="example_next"><a href="#" aria-controls="example" data-dt-idx="2" tabindex="0">Next</a></li>
-                     </ul>
+                    </ul>
                 </div>
-             </div>
+            </div>
 
         </div>
     </div>
@@ -231,45 +231,43 @@
 @section Scripts
 {
     <script>
+        // Function to update QR Code
         function updateQRCode() {
             $('.QRCodeImage').each(function () {
-                var code = $(this).siblings('.Code').text();
+                var code = $(this).siblings('.Code').text().trim();
+                var generateQRCodeUrl = '@Url.Action("GenerateQRCode", "WareHouse")';  // Ensure the correct URL
                 if (code) {
-                    $(this).attr('src', '@Url.Action("GenerateQRCode", "WareHouse")?text=' + encodeURIComponent(code));
+                    $(this).attr('src', generateQRCodeUrl + '?text=' + encodeURIComponent(code));
                 } else {
-                    $(this).attr('src', '');
-                }
-            });
-        } 
-        
-        
-        function updateBar() {
-            $('.BarCodeUPC').each(function () {
-                var upc = $(this).siblings('.UPCFORPR').text();
-                console.log(upc);
-                if (upc) {
-                    $(this).attr('src', `@Url.Action("GenerateBarcode", "ProductInformation")?text=` + encodeURIComponent(upc));
-                } else {
-                    $(this).attr('src', '');
+                    $(this).attr('src', '');  // Set to empty if code is invalid
                 }
             });
         }
 
+        // Function to update Bar Code
+        function updateBar() {
+            $('.BarCodeUPC').each(function () {
+                var upc = $(this).siblings('.UPCFORPR').text().trim();
+                var generateBarCodeUrl = '@Url.Action("GenerateBarcode", "ProductInformation")';  // Ensure the correct URL
+                if (upc) {
+                    $(this).attr('src', generateBarCodeUrl + '?text=' + encodeURIComponent(upc));
+                } else {
+                    $(this).attr('src', '');  // Set to empty if UPC is invalid
+                }
+            });
+        }
 
-
-
-    </script>
-    <script>
-        $(document).on('click', '.paginate_button', function () {
+        // Call functions when the document is ready and after pagination clicks
+        $(document).ready(function () {
             updateQRCode();
             updateBar();
         });
 
-        $(document).ready(function () {
+        $(document).on('click', '.paginate_button', function () {
+            updateQRCode();
             updateBar();
         });
     </script>
-
 }
 
 

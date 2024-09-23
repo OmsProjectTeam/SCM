@@ -92,12 +92,12 @@
                                                         <td>
                                                             <div class="form-group">
                                                                 <div hidden class="Code">@item.Qrcode</div>
-                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" data-qrcode-url="@Url.Action("GenerateQRCode", "WareHouse")" />
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <img class="BarCodeUPC" src="" alt="Bar Code" class="img-fluid" />
-                                                                <div hidden class="UPCFORPR">@item.UPC</div>
+                                                                <img class="BarCodeUPC img-fluid" src="" alt="Bar Code" data-barcode-url="@Url.Action("GenerateBarcode", "ProductInformation")" />
+                                                                <div hidden class="UPCFORPR img-fluid">@item.UPC</div>
                                                             </div>
                                                         </td>
                                                     </tr>
