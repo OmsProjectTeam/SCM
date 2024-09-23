@@ -83,11 +83,13 @@
                                                         <td>
                                                             <div class="form-group">
                                                                 <div hidden class="Code">@item.Qrcode</div>
-                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" />
+                                                                @* <img class="QRCodeImage img-fluid" src="" alt="QR Code" /> *@
+                                                                <img class="QRCodeImage img-fluid" src="" alt="QR Code" data-url="@Url.Action("GenerateQRCode", "WareHouse")" />
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <img class="BarCodeUPC img-fluid" src="" alt="Bar Code"/>
+                                                                <img class="UPCFORPR img-fluid" src="" alt="Bar Code" data-url="@Url.Action("GenerateBarcode", "ProductInformation")" />
+                                                                @* <img class="BarCodeUPC img-fluid" src="" alt="Bar Code"/> *@
                                                                 <div hidden class="UPCFORPR" style="display:none;">@item.UPC</div>
                                                             </div>
                                                         </td>
@@ -230,44 +232,7 @@
 @* <img src="~/images/user gide/ProductInformation.png" width="1920" height="1077" /> *@
 @section Scripts
 {
-    <script>
-        // Function to update QR Code
-        function updateQRCode() {
-            $('.QRCodeImage').each(function () {
-                var code = $(this).siblings('.Code').text().trim();
-                var generateQRCodeUrl = '@Url.Action("GenerateQRCode", "WareHouse")';  // Ensure the correct URL
-                if (code) {
-                    $(this).attr('src', generateQRCodeUrl + '?text=' + encodeURIComponent(code));
-                } else {
-                    $(this).attr('src', '');  // Set to empty if code is invalid
-                }
-            });
-        }
-
-        // Function to update Bar Code
-        function updateBar() {
-            $('.BarCodeUPC').each(function () {
-                var upc = $(this).siblings('.UPCFORPR').text().trim();
-                var generateBarCodeUrl = '@Url.Action("GenerateBarcode", "ProductInformation")';  // Ensure the correct URL
-                if (upc) {
-                    $(this).attr('src', generateBarCodeUrl + '?text=' + encodeURIComponent(upc));
-                } else {
-                    $(this).attr('src', '');  // Set to empty if UPC is invalid
-                }
-            });
-        }
-
-        // Call functions when the document is ready and after pagination clicks
-        $(document).ready(function () {
-            updateQRCode();
-            updateBar();
-        });
-
-        $(document).on('click', '.paginate_button', function () {
-            updateQRCode();
-            updateBar();
-        });
-    </script>
+    <script src="~/js/my-product-information.js"></script>
 }
 
 
