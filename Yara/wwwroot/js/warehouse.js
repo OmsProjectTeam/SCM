@@ -79,3 +79,24 @@ function printWarehouseDetails() {
         console.error("Error: ", textStatus, errorThrown);
     });
 }
+
+$(document).ready(function () {
+    updateQRCode();  // Call the function on page load to generate QR codes
+});
+
+$(document).on('click', '.paginate_button', function () {
+    updateQRCode();  // Call the function when pagination changes
+});
+
+// Function to update the QR code
+function updateQRCode() {
+    $('.QRCodeImage').each(function () {
+        var code = $(this).siblings('.Code').text();
+        if (code.trim() !== '') {  // Ensure code is not empty or just whitespace
+            $(this).attr('src', '/Admin/WareHouse/GenerateQRCode?text=' + encodeURIComponent(code));
+        } else {
+            $(this).attr('src', '');  // Set to empty if code is invalid
+        }
+    });
+}
+

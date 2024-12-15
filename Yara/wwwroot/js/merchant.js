@@ -1,40 +1,4 @@
-﻿// Initialize DataTables for the provided tables
-$(function () {
-    $("#example2").DataTable().fnDestroy();
-    $('#example2').DataTable({
-        "paging": false,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-    });
-});
-
-$(function () {
-    $("#example3").DataTable().fnDestroy();
-    $('#example3').DataTable({
-        "paging": false,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-    });
-});
-
-$(function () {
-    $("#example4").DataTable().fnDestroy();
-    $('#example4').DataTable({
-        "paging": false,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-    });
-});
-
+﻿
 // Handle merchant select change to fetch user details and update form fields
 $(document).ready(function () {
     $('.select2_1').select2({
@@ -95,4 +59,6 @@ $(document).ready(function () {
         var truncatedText = truncateText(text, 100);
         $(this).text(truncatedText);
     });
+
+    $("#url").val(window.location.href);
 });

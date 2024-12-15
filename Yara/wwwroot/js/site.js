@@ -1,4 +1,14 @@
-﻿
+﻿$(function () {
+    $("#example1").DataTable().fnDestroy();
+    $('#example1').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
 $(function () {
     $("#example2").DataTable().fnDestroy();
     $('#example2').DataTable({
@@ -24,8 +34,32 @@ $(function () {
 });
 
 $(function () {
+    $("#example4").DataTable().fnDestroy();
+    $('#example4').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
+
+$(function () {
     $("#example5").DataTable().fnDestroy();
     $('#example5').DataTable({
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": false,
+    });
+});
+
+$(function () {
+    $("#example6").DataTable().fnDestroy();
+    $('#example6').DataTable({
         "paging": false,
         "lengthChange": false,
         "searching": false,
